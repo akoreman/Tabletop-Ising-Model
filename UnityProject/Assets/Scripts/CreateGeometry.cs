@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//This handles the startup of a new game, sets all proper variables and sets up the creation of the level geometry.
 
 public class CreateGeometry : MonoBehaviour
 {
@@ -35,30 +36,20 @@ public class CreateGeometry : MonoBehaviour
         Pickups = GameObject.Find("Pickups");
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         gameState.GetComponent<GameState>().setGlobalParams(nX, nY, sizeX, sizeY, numFlips, startTemperature);
-
-        //GameObject.Find("HUD").GetComponent<HUD>().setScoreText();
-        //GameObject.Find("HUD").GetComponent<HUD>().setTempText();
-        //GameObject.Find("HUD").GetComponent<HUD>().setFieldIcon();
 
         foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
         foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
 
         GetComponent<TileHandler>().createGeometry();
 
-
         Pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0,nX), Random.Range(0, nY));
         Pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
-
-        //Pickups.GetComponent<TempPickups>().placeFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
-        //Pickups.GetComponent<TempPickups>().placePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
     }
 
     
-    // Update is called once per frame
     void Update()
     {
         if (!gameState.GetComponent<GameState>().gameAlive && Input.GetKeyDown("space"))
@@ -76,11 +67,7 @@ public class CreateGeometry : MonoBehaviour
             gameState.GetComponent<GameState>().fieldOnScreen = false;
 
             foregroundGeometry.GetComponent<BackgroundHandler>().foregroundFieldButtonPress();
-
-
-            //Pickups.GetComponent<TempPickups>().placeFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
-
-            //GameObject.Find("HUD").GetComponent<HUD>().setFieldIcon();          
+        
         }
     }    
 }

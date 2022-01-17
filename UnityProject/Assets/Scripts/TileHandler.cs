@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Handles the creation and movement of the tiles which make up the geometry of the level.
+
 public class TileHandler : MonoBehaviour
 {
     [SerializeField]
@@ -19,8 +21,7 @@ public class TileHandler : MonoBehaviour
     [SerializeField]
     Transform archPrefab;
 
-
-
+    //Contains the relevant variables for the tiles and walls.
     public class IsingTile
     {
         public Transform tile;
@@ -61,6 +62,7 @@ public class TileHandler : MonoBehaviour
         wallList = new ElectricWall[2 * nX + 2 * nY];
         int wallIndex = 0;
 
+        //Create all the tiles, walls and wallposts at the correct positions.
         for (int i = 0; i < nX; i++)
             for (int j = 0; j < nY; j++)
             {
@@ -86,7 +88,7 @@ public class TileHandler : MonoBehaviour
                 if (i == 0)
                 {
                     wallIndex = j;
-                    //Transform wall = Instantiate(wallPrefab);
+
                     wallList[wallIndex] = new ElectricWall();
                     wallList[wallIndex].wall = Instantiate(electricWallPrefab);
                     wallList[wallIndex].wall.name = "wall" + wallIndex.ToString();
@@ -94,9 +96,7 @@ public class TileHandler : MonoBehaviour
 
                     Vector3 wallCoords = tileCoords;
                     wallCoords.x -= sizeX / 2f + 0.2f;
-                    //wallCoords.y += 0.25f;
 
-                    //wall.localPosition = wallCoords;
                     wallList[wallIndex].wall.GetComponent<Transform>().localPosition = wallCoords;
                     wallIndex++;
                 }
@@ -104,7 +104,7 @@ public class TileHandler : MonoBehaviour
                 if (j == nY - 1)
                 {
                     wallIndex = i + nX;
-                    //Transform wall = Instantiate(wallPrefab);
+
                     wallList[wallIndex] = new ElectricWall();
                     wallList[wallIndex].wall = Instantiate(electricWallPrefab);
                     wallList[wallIndex].wall.name = "wall" + wallIndex.ToString();
@@ -112,10 +112,7 @@ public class TileHandler : MonoBehaviour
 
                     Vector3 wallCoords = tileCoords;
                     wallCoords.z += sizeY / 2f + 0.2f;
-                    //wallCoords.y += 0.25f;
 
-                    //wall.localPosition = wallCoords;
-                    //wall.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
                     wallList[wallIndex].wall.GetComponent<Transform>().localPosition = wallCoords;
                     wallList[wallIndex].wall.GetComponent<Transform>().Rotate(0.0f, 90.0f, 0.0f, Space.Self);
                     wallIndex++;
@@ -124,7 +121,7 @@ public class TileHandler : MonoBehaviour
                 if (i == nX - 1)
                 {
                     wallIndex = nX + nY + Mathf.Abs(j - nY + 1);
-                    //Transform wall = Instantiate(wallPrefab);
+
                     wallList[wallIndex] = new ElectricWall();
                     wallList[wallIndex].wall = Instantiate(electricWallPrefab);
                     wallList[wallIndex].wall.name = "wall" + wallIndex.ToString();
@@ -132,9 +129,7 @@ public class TileHandler : MonoBehaviour
 
                     Vector3 wallCoords = tileCoords;
                     wallCoords.x += sizeX / 2f + 0.2f;
-                    //wallCoords.y += 0.25f;
 
-                    //wall.localPosition = wallCoords;
                     wallList[wallIndex].wall.GetComponent<Transform>().localPosition = wallCoords;
                     wallIndex++;
                 }
@@ -142,8 +137,7 @@ public class TileHandler : MonoBehaviour
                 if (j == 0)
                 {
                     wallIndex = nX + nY + nX + Mathf.Abs(i - nX + 1);
-                    //wallIndex = nX + nY + nX - 1 + i;
-                    //Transform wall = Instantiate(wallPrefab);
+
                     wallList[wallIndex] = new ElectricWall();
                     wallList[wallIndex].wall = Instantiate(electricWallPrefab);
                     wallList[wallIndex].wall.name = "wall" + wallIndex.ToString();
@@ -151,10 +145,7 @@ public class TileHandler : MonoBehaviour
 
                     Vector3 wallCoords = tileCoords;
                     wallCoords.z -= sizeY / 2f + 0.2f;
-                    //wallCoords.y += 0.25f;
-
-                    //wall.localPosition = wallCoords;
-                    //wall.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+  
                     wallList[wallIndex].wall.GetComponent<Transform>().localPosition = wallCoords;
                     wallList[wallIndex].wall.GetComponent<Transform>().Rotate(0.0f, 90.0f, 0.0f, Space.Self);
                     wallIndex++;
@@ -168,7 +159,7 @@ public class TileHandler : MonoBehaviour
 
                     postCoords.x -= sizeX / 2f + 0.2f;
                     postCoords.z -= sizeY / 2f + 0.2f;
-                    //postCoords.y += 0.25f;
+ 
                     postCoords.y += -1.15f;
 
                     post.localPosition = postCoords;
@@ -182,7 +173,7 @@ public class TileHandler : MonoBehaviour
 
                     postCoords.x -= sizeX / 2f + 0.2f;
                     postCoords.z += sizeY / 2f + 0.2f;
-                    //postCoords.y += 0.25f;
+
                     postCoords.y += -1.15f;
 
                     post.localPosition = postCoords;
@@ -196,7 +187,7 @@ public class TileHandler : MonoBehaviour
 
                     postCoords.x += sizeX / 2f + 0.2f;
                     postCoords.z -= sizeY / 2f + 0.2f;
-                    //postCoords.y += 0.25f;
+         
                     postCoords.y += -1.15f;
 
                     post.localPosition = postCoords;
@@ -210,7 +201,7 @@ public class TileHandler : MonoBehaviour
 
                     postCoords.x += sizeX / 2f + 0.2f;
                     postCoords.z += sizeY / 2f + 0.2f;
-                    //postCoords.y += 0.25f;
+           
                     postCoords.y += -1.15f;
 
                     post.localPosition = postCoords;
@@ -218,10 +209,12 @@ public class TileHandler : MonoBehaviour
 
             }
 
+        //Flips the Ising model every 10 seconds.
         InvokeRepeating("isingFlips", 2.5f, 10f);
 
         }
 
+    //Help function to translate from ising coordinates to world coordinates.
     public Vector3 getTileCoords(int i, int j)
     {
         int nX = gameState.GetComponent<GameState>().nX;
@@ -240,6 +233,7 @@ public class TileHandler : MonoBehaviour
         return positionVector;
     }
 
+    //These three functions handle the underlying Ising model which dictates how the tiles move.
     float EnergyOneSpin(int xPos, int yPos)
     {
         int nX = gameState.GetComponent<GameState>().nX;
@@ -298,7 +292,7 @@ public class TileHandler : MonoBehaviour
 
     void Update()
     {
-
+        //Move the tiles every frame.
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
 
@@ -335,20 +329,16 @@ public class TileHandler : MonoBehaviour
                 }
             }
 
+        //Make the electric fences move randomly to make the look electric.
         for (int i = 0; i < (2* nX + 2* nY); i++)
-        {
             for (int j = 1; j < 5; j++)
-            {
                 if (!wallList[i].isArch)
-                {
-                    wallList[i].lineRenderer.SetPosition(j, new Vector3(j * 0.2f, Random.Range(-0.15f, 0.15f), 0f));
-                }
-            }         
-        }
+                    wallList[i].lineRenderer.SetPosition(j, new Vector3(j * 0.2f, Random.Range(-0.15f, 0.15f), 0f));       
             
 
         }
 
+    //Set all the tiles back up.
     public void setAllUp()
     {
         int nX = gameState.GetComponent<GameState>().nX;
@@ -363,6 +353,7 @@ public class TileHandler : MonoBehaviour
                 }
     }
 
+    //Create a portal pair.
     public void createPBCPair(int Position)
     {
         int nX = gameState.GetComponent<GameState>().nX;
@@ -381,7 +372,6 @@ public class TileHandler : MonoBehaviour
 
             wallSW = wallList[Position + stepsFromEdge + nY + stepsFromEdge - 1];
             positionSW = wallSW.wall.transform.localPosition;
-            //wallSW = wallList[stepsFromEdge];
         }
         else
         {

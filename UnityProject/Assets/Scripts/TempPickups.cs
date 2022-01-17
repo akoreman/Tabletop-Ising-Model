@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Handles the placement of the pick-ups.
+
 public class TempPickups : MonoBehaviour
 {
     [SerializeField]

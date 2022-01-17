@@ -4,17 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//Handles the spacebar press to start.
+
 public class Menu : MonoBehaviour
 {
-    //[SerializeField]
-    //Button startButton; 
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        //startButton.onClick.AddListener(onClick);
-    }
-
     void Update()
     {
         if (Input.GetKeyDown("space"))
@@ -22,11 +15,4 @@ public class Menu : MonoBehaviour
             SceneManager.LoadScene("MainGame");
         }
     }
-
-    /*
-    void onClick()
-    {
-        SceneManager.LoadScene("MainGame");
-    }
-    */
 }

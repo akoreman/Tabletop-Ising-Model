@@ -34,9 +34,7 @@ public class BallBehaviour : MonoBehaviour
     Rigidbody body;
 
     bool onGround;
-
     bool wantJump = false;
-
     bool cameraMoving = false;
 
     Vector3 currentCamPos;
@@ -50,21 +48,22 @@ public class BallBehaviour : MonoBehaviour
 
     void Awake()
     {
+        // Make the connections needed for the rest of the script.
         body = ball.GetComponent<Rigidbody>();
         gameState = GameObject.Find("Game State");
         foregroundGeometry = GameObject.Find("Foreground Geometry");
         Pickups = GameObject.Find("Pickups");
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         ball.localPosition = new Vector3(0f, 0.25f, 0f);
     }
 
-    // Update is called once per frame
     void Update()
     {        
+        // Controls are slower mid-air to give a sluggish feeling mid-air.
         if (onGround)
         {
             acceleration.x = Input.GetAxis("Horizontal") * accScaling;
@@ -76,6 +75,10 @@ public class BallBehaviour : MonoBehaviour
             acceleration.y = Input.GetAxis("Vertical") * airAccScaling;
         }
 
+        // Normalize the input vector to make controls more uniform.
+        acceleration.Normalize();
+
+        // Set that the player wants to jump, jump itself is handled in FixedUpdate(). 
         if (Input.GetButtonDown("Jump") && onGround)
         {
             wantJump = true;
@@ -113,38 +116,30 @@ public class BallBehaviour : MonoBehaviour
         
     }
 
-    void Jump()
-    {
-        velocity.y += 5f;
-    }
-
-
     void FixedUpdate()
     {
+        //Get the current velocity from the rigidbody.
         velocity = body.velocity;
 
+        //Get and clamp the new velocity.
         velocity.x += Time.deltaTime * acceleration.x;
         velocity.z += Time.deltaTime * acceleration.y;
 
         velocity.x = Mathf.Min(maxVel, velocity.x);
         velocity.z = Mathf.Min(maxVel, velocity.z);
 
-
+        //Perform the jump.
         if (wantJump && onGround)
         {
             velocity.y += jumpVel;
             wantJump = false;
         }
 
+        //Update the velocity of the solidbody.
         body.velocity = velocity;
     }
 
-    void OnCollisionEnter(Collision collider)
-    {
-        if (collider.transform.name != "uppickup" & collider.transform.name != "downpickup")
-            onGround = true;
-    }
-
+    //Keep track whether the ball is currently colliding with the floor.
     void OnCollisionExit(Collision collider)
     {
         if (collider.transform.name != "uppickup" & collider.transform.name != "downpickup")
@@ -157,6 +152,7 @@ public class BallBehaviour : MonoBehaviour
             onGround = true;
     }
 
+    //Handle the triggers when the ball collides with the pickups on the field.
     void OnTriggerEnter(Collider trigger)
     {
         if (trigger.name == "uppickup")
@@ -164,18 +160,18 @@ public class BallBehaviour : MonoBehaviour
             int nX = gameState.GetComponent<GameState>().nX;
             int nY = gameState.GetComponent<GameState>().nY;
 
+            //Destroy the pickup.
             Destroy(trigger.gameObject);
             gameState.GetComponent<GameState>().Score += 10;
 
-
+            //Update the temperature and set the in-game displays.
             gameState.GetComponent<GameState>().Temperature = Mathf.Min(99.99f, gameState.GetComponent<GameState>().Temperature + 0.05f);
             Pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0, nX), Random.Range(0, nY));
 
-            //GameObject.Find("HUD").GetComponent<HUD>().setScoreText();
-            //GameObject.Find("HUD").GetComponent<HUD>().setTempText();
             foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
             foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
 
+            //If enough consecutive up-pickups have been collected place a new powerup.
             gameState.GetComponent<GameState>().consectUp++;
 
             if (gameState.GetComponent<GameState>().consectUp >= nConPowerUp)
@@ -227,26 +223,21 @@ public class BallBehaviour : MonoBehaviour
             gameState.GetComponent<GameState>().Temperature = Mathf.Max(0.5f, gameState.GetComponent<GameState>().Temperature - 0.05f);
             Pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
 
-            //GameObject.Find("HUD").GetComponent<HUD>().setScoreText();
-            //GameObject.Find("HUD").GetComponent<HUD>().setTempText();
-
             foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
             foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
 
             gameState.GetComponent<GameState>().consectUp = 0;
         }
 
+        //Destroy the pickup, set the bool in the gamestate and rotate the indicator.
         if (trigger.name == "fieldpickup")
         {
             gameState.GetComponent<GameState>().hasUpPickup = true;
-            //GameObject.Find("HUD").GetComponent<HUD>().setFieldIcon();
             Destroy(trigger.gameObject);
-
-            //Transform fieldLight = GameObject.Find("Background Geometry").GetComponent<BackgroundHandler>().fieldLight;
             foregroundGeometry.GetComponent<BackgroundHandler>().rotateLightGreen();
-            //StartCoroutine(GameObject.Find("Background Geometry").GetComponent<BackgroundHandler>().rotateLight(GameObject.Find("Background Geometry").GetComponent<BackgroundHandler>().fieldLight, true));
         }
 
+        //Destroy the pickup, set the variables in the gamestate and place the portals.
         if (trigger.name == "pbcpickup")
         {
             int nX = gameState.GetComponent<GameState>().nX;
@@ -256,17 +247,12 @@ public class BallBehaviour : MonoBehaviour
 
             gameState.GetComponent<GameState>().pbcOnScreen = false;
 
-            //if (gameState.GetComponent<GameState>().numPBC < nX + nY)
-            //    Pickups.GetComponent<TempPickups>().placePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
-
             int pbcPosition = Random.Range(0, nX + nY - gameState.GetComponent<GameState>().numPBC);
             GameObject.Find("LevelGeometry").GetComponent<TileHandler>().createPBCPair(gameState.GetComponent<GameState>().availablePairs[pbcPosition]);
-
-
-            //GameObject.Find("HUD").GetComponent<HUD>().setFieldIcon();
             
         }
 
+        //If the ball hits one of the portals portal it to the other side of the field.
         if (trigger.name == "portalXL")
         {
             int nX = gameState.GetComponent<GameState>().nX;
@@ -302,8 +288,6 @@ public class BallBehaviour : MonoBehaviour
 
 
         }
-
-
 
 
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 
+//Controls the camera to lazily follow the player and to rotate up when entering the area below the field.
+
 public class OrbitCamera : MonoBehaviour
 {
     [SerializeField]
@@ -30,6 +32,7 @@ public class OrbitCamera : MonoBehaviour
         gameState = GameObject.Find("Game State");
     }
 
+    //Move and rotate the camera after the rest of each frame has been done.
     void LateUpdate()
     {
         if (gameState.GetComponent<GameState>().gameAlive)
@@ -41,14 +44,9 @@ public class OrbitCamera : MonoBehaviour
             ballHeight = focus.localPosition.y;
 
             if (ballHeight < 0f)
-            {
-                //Angle = Mathf.Min(1f, Mathf.Abs(ballHeight)) * 45 + 45;
                 Angle = 90f;
-            }
             else
-            {
                 Angle = 30f;
-            }
 
             float currentAngle = transform.localEulerAngles.x;
             currentAngle = Mathf.MoveTowards(currentAngle, Angle, maxCameraRotation * Time.deltaTime);
@@ -57,6 +55,7 @@ public class OrbitCamera : MonoBehaviour
         }
     }
 
+    //Make the cameras focus lazily follow the ball.
     void UpdateFocusPoint()
     {
         Vector3 targetPoint = focus.position;

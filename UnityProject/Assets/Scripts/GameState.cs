@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class to keep track of the global gamestate.
+
 public class GameState : MonoBehaviour
 {
     public bool hasUpPickup = false;
