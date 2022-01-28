@@ -66,13 +66,19 @@ public class BallBehaviour : MonoBehaviour
         // Controls are slower mid-air to give a sluggish feeling mid-air.
         if (onGround)
         {
-            acceleration.x = Input.GetAxis("Horizontal") * accScaling;
-            acceleration.y = Input.GetAxis("Vertical") * accScaling;
+            acceleration.x = Input.GetAxis("Horizontal");// * accScaling;
+            acceleration.y = Input.GetAxis("Vertical");// * accScaling;
+
+            acceleration.Normalize();
+            acceleration *= accScaling;
         }
         else
         {
-            acceleration.x = Input.GetAxis("Horizontal") * airAccScaling;
-            acceleration.y = Input.GetAxis("Vertical") * airAccScaling;
+            acceleration.x = Input.GetAxis("Horizontal");// * airAccScaling;
+            acceleration.y = Input.GetAxis("Vertical");// * airAccScaling;
+
+            acceleration.Normalize();
+            acceleration *= airAccScaling;
         }
 
         // Normalize the input vector to make controls more uniform.
