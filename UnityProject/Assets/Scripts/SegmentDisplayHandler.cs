@@ -7,28 +7,28 @@ using UnityEngine;
 public class SegmentDisplayHandler : MonoBehaviour
 {
     [SerializeField]
-    public Transform Digit11;
+    public Transform digit11;
 
     [SerializeField]
-    public Transform Digit12;
+    public Transform digit12;
 
     [SerializeField]
-    public Transform Digit13;
+    public Transform digit13;
 
     [SerializeField]
-    public Transform Digit14;
+    public Transform digit14;
 
     [SerializeField]
-    public Transform Digit21;
+    public Transform digit21;
 
     [SerializeField]
-    public Transform Digit22;
+    public Transform digit22;
 
     [SerializeField]
-    public Transform Digit23;
+    public Transform digit23;
 
     [SerializeField]
-    public Transform Digit24;
+    public Transform digit24;
 
     [SerializeField]
     Material inputBlack;
@@ -36,8 +36,8 @@ public class SegmentDisplayHandler : MonoBehaviour
     [SerializeField]
     Material inputGreen;
 
-    static Material Black;
-    static Material Green;
+    static Material black;
+    static Material green;
 
     SegmentDisplay scoreDisplay;
     SegmentDisplay tempDisplay;
@@ -45,11 +45,11 @@ public class SegmentDisplayHandler : MonoBehaviour
     //Set-up the displays and the digits.
     void Awake()
     {
-        Green = inputGreen;
-        Black = inputBlack;
+        green = inputGreen;
+        black = inputBlack;
 
-        tempDisplay = new SegmentDisplay(new SegmentDigit(Digit21, Black, Green), new SegmentDigit(Digit22, Black, Green), new SegmentDigit(Digit23, Black, Green), new SegmentDigit(Digit24, Black, Green));
-        scoreDisplay = new SegmentDisplay(new SegmentDigit(Digit11, Black, Green), new SegmentDigit(Digit12, Black, Green), new SegmentDigit(Digit13, Black, Green), new SegmentDigit(Digit14, Black, Green));
+        tempDisplay = new SegmentDisplay(new SegmentDigit(digit21, black, green), new SegmentDigit(digit22, black, green), new SegmentDigit(digit23, black, green), new SegmentDigit(digit24, black, green));
+        scoreDisplay = new SegmentDisplay(new SegmentDigit(digit11, black, green), new SegmentDigit(digit12, black, green), new SegmentDigit(digit13, black, green), new SegmentDigit(digit14, black, green));
     }
 
     //These are called to change the display.
@@ -104,26 +104,26 @@ public class SegmentDisplay
 //This class handles the segments of a single digit of a display.
 public class SegmentDigit
 {
-    GameObject Segment1;
-    GameObject Segment2;
-    GameObject Segment3;
-    GameObject Segment4;
-    GameObject Segment5;
-    GameObject Segment6;
-    GameObject Segment7;
+    GameObject segment1;
+    GameObject segment2;
+    GameObject segment3;
+    GameObject segment4;
+    GameObject segment5;
+    GameObject segment6;
+    GameObject segment7;
 
     Material Green;
     Material Black;
 
     public SegmentDigit(Transform Digit, Material Black, Material Green)
     {
-        Segment1 = Digit.Find("Segment 1").gameObject;
-        Segment2 = Digit.Find("Segment 2").gameObject;
-        Segment3 = Digit.Find("Segment 3").gameObject;
-        Segment4 = Digit.Find("Segment 4").gameObject;
-        Segment5 = Digit.Find("Segment 5").gameObject;
-        Segment6 = Digit.Find("Segment 6").gameObject;
-        Segment7 = Digit.Find("Segment 7").gameObject;
+        segment1 = Digit.Find("Segment 1").gameObject;
+        segment2 = Digit.Find("Segment 2").gameObject;
+        segment3 = Digit.Find("Segment 3").gameObject;
+        segment4 = Digit.Find("Segment 4").gameObject;
+        segment5 = Digit.Find("Segment 5").gameObject;
+        segment6 = Digit.Find("Segment 6").gameObject;
+        segment7 = Digit.Find("Segment 7").gameObject;
 
         this.Green = Green;
         this.Black = Black;
@@ -135,112 +135,112 @@ public class SegmentDigit
         switch (desiredNumber)
         {
             case '0':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Green;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Black;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Green;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Black;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '1':
-                Segment1.GetComponent<Renderer>().material = Black;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Black;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Black;
-                Segment7.GetComponent<Renderer>().material = Black;
+                segment1.GetComponent<Renderer>().material = Black;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Black;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Black;
+                segment7.GetComponent<Renderer>().material = Black;
 
                 break;
 
             case '2':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Green;
-                Segment3.GetComponent<Renderer>().material = Black;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Black;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Green;
+                segment3.GetComponent<Renderer>().material = Black;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Black;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '3':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Black;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Black;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '4':
-                Segment1.GetComponent<Renderer>().material = Black;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Black;
+                segment1.GetComponent<Renderer>().material = Black;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Black;
 
                 break;
 
             case '5':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Black;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Black;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '6':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Green;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Black;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Green;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Black;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '7':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Black;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Black;
-                Segment7.GetComponent<Renderer>().material = Black;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Black;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Black;
+                segment7.GetComponent<Renderer>().material = Black;
 
                 break;
 
             case '8':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Green;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Green;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
 
             case '9':
-                Segment1.GetComponent<Renderer>().material = Green;
-                Segment2.GetComponent<Renderer>().material = Black;
-                Segment3.GetComponent<Renderer>().material = Green;
-                Segment4.GetComponent<Renderer>().material = Green;
-                Segment5.GetComponent<Renderer>().material = Green;
-                Segment6.GetComponent<Renderer>().material = Green;
-                Segment7.GetComponent<Renderer>().material = Green;
+                segment1.GetComponent<Renderer>().material = Green;
+                segment2.GetComponent<Renderer>().material = Black;
+                segment3.GetComponent<Renderer>().material = Green;
+                segment4.GetComponent<Renderer>().material = Green;
+                segment5.GetComponent<Renderer>().material = Green;
+                segment6.GetComponent<Renderer>().material = Green;
+                segment7.GetComponent<Renderer>().material = Green;
 
                 break;
         }

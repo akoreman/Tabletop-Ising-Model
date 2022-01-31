@@ -49,8 +49,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\CreateGeometry.cs" />
-     <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\GameState.cs" />
+     <Compile Include="Assets\Scripts\CrossGameVariables.cs" />
      <Compile Include="Assets\Scripts\TileHandler.cs" />
      <Compile Include="Assets\Scripts\SegmentDisplayHandler.cs" />
      <Compile Include="Assets\Scripts\TempPickups.cs" />

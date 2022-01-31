@@ -27,17 +27,21 @@ public class CreateGeometry : MonoBehaviour
 
     GameObject gameState;
     GameObject foregroundGeometry;
-    GameObject Pickups;
+    GameObject pickups;
 
+    // Connect variables to the relevant gameObjects at awake.
     void Awake()
     {
         gameState = GameObject.Find("Game State");
         foregroundGeometry = GameObject.Find("Foreground Geometry");
-        Pickups = GameObject.Find("Pickups");
+        pickups = GameObject.Find("Pickups");
     }
 
+    // At start, retrieve difficulty, set global variables and create the geometry.
     void Start()
     {
+        SetNumFlipsDifficulty();
+
         gameState.GetComponent<GameState>().setGlobalParams(nX, nY, sizeX, sizeY, numFlips, startTemperature);
 
         foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
@@ -45,29 +49,37 @@ public class CreateGeometry : MonoBehaviour
 
         GetComponent<TileHandler>().createGeometry();
 
-        Pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0,nX), Random.Range(0, nY));
-        Pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
+        // Place the initial temperature pickups.
+        pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0,nX), Random.Range(0, nY));
+        pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
     }
 
     
     void Update()
     {
         if (!gameState.GetComponent<GameState>().gameAlive && Input.GetKeyDown("space"))
-        {
             SceneManager.LoadScene("MainGame");
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && gameState.GetComponent<GameState>().hasUpPickup)
+        if (Input.GetKeyDown("x") && gameState.GetComponent<GameState>().hasUpPickup)
         {
-            int nX = gameState.GetComponent<GameState>().nX;
-            int nY = gameState.GetComponent<GameState>().nY;
-
-            GetComponent<TileHandler>().setAllUp();
+            GetComponent<TileHandler>().SetAllUp();
             gameState.GetComponent<GameState>().hasUpPickup = false;
             gameState.GetComponent<GameState>().fieldOnScreen = false;
 
             foregroundGeometry.GetComponent<BackgroundHandler>().foregroundFieldButtonPress();
-        
         }
-    }    
+    }   
+    
+    // Retrieve the difficulty from the crossgamevariables and set the number of flips accordingly.
+    void SetNumFlipsDifficulty()
+    {
+        if (CrossGameVariables.DIFFICULTY == "easy")
+            numFlips = 10;
+
+        if (CrossGameVariables.DIFFICULTY == "normal")
+            numFlips = 100;
+
+        if (CrossGameVariables.DIFFICULTY == "hard")
+            numFlips = 1000;
+    }
 }

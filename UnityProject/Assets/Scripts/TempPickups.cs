@@ -57,19 +57,11 @@ public class TempPickups : MonoBehaviour
 
     public void placePBCPickup(int i, int j)
     {
-        int nX = gameState.GetComponent<GameState>().nX;
-        int nY = gameState.GetComponent<GameState>().nY;
-
         pbcPickup = Instantiate(pbcPrefab);
         pbcPickup.localPosition = levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j);
         pbcPickup.localPosition += new Vector3(0f, 0.3f, 0f);
-
-        print(levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j));
-        print(pbcPickup.localPosition);
-
+ 
         pbcPickup.name = "pbcpickup";
-
-
     }
 
 }

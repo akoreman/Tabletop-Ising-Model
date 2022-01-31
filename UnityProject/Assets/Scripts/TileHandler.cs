@@ -210,7 +210,7 @@ public class TileHandler : MonoBehaviour
             }
 
         //Flips the Ising model every 10 seconds.
-        InvokeRepeating("isingFlips", 2.5f, 10f);
+        InvokeRepeating("IsingFlips", 2.5f, 10f);
 
         }
 
@@ -247,7 +247,7 @@ public class TileHandler : MonoBehaviour
         return (x % m + m) % m;
     }
 
-    public void isingFlips()
+    public void IsingFlips()
     {
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
@@ -339,7 +339,7 @@ public class TileHandler : MonoBehaviour
         }
 
     //Set all the tiles back up.
-    public void setAllUp()
+    public void SetAllUp()
     {
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
@@ -354,7 +354,7 @@ public class TileHandler : MonoBehaviour
     }
 
     //Create a portal pair.
-    public void createPBCPair(int Position)
+    public void CreatePBCPair(int Position)
     {
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
