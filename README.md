@@ -7,6 +7,8 @@ Uses the following font https://assetstore.unity.com/packages/2d/fonts/free-pixe
 
 # Screenshots
 
+<img src="https://raw.github.com/tkoreman/Tabletop-Ising-Model/master/images/Splash.png" width="400">  
+
 <img src="https://raw.github.com/tkoreman/Tabletop-Ising-Model/master/images/Ising1.PNG" width="400">  
 
 <img src="https://raw.github.com/tkoreman/Tabletop-Ising-Model/master/images/Ising2.PNG" width="400">  
