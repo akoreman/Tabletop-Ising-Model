@@ -7,8 +7,8 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public bool hasUpPickup = false;
-    public bool pbcOnScreen = false;
-    public bool fieldOnScreen = false;
+    public bool isPbcOnScreen = false;
+    public bool isFieldOnScreen = false;
 
     public int nX;
     public int nY;
@@ -18,28 +18,28 @@ public class GameState : MonoBehaviour
 
     public int numFlips;
 
-    public float Temperature;
+    public float temperature;
 
-    public int Score;
+    public int score;
 
     public int numPBC;
     public int[] availablePairs;
 
-    public bool gameAlive;
+    public bool isGameAlive;
     public int consectUp;
 
 
-    public void setGlobalParams(int nX, int nY, float sizeX, float sizeY, int numFlips, float startTemperature)
+    public void SetGlobalParams(int nX, int nY, float sizeX, float sizeY, int numFlips, float startTemperature)
     {
         this.nX = nX;
         this.nY = nY;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.numFlips = numFlips;
-        this.Temperature = startTemperature;
-        this.Score = 0;
+        this.temperature = startTemperature;
+        this.score = 0;
         this.numPBC = 0;
-        this.gameAlive = true;
+        this.isGameAlive = true;
         this.consectUp = 0;
 
         availablePairs = new int[nX + nY];

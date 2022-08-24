@@ -53,16 +53,16 @@ public class SegmentDisplayHandler : MonoBehaviour
     }
 
     //These are called to change the display.
-    public void setScoreDisplay()
+    public void SetScoreDisplay()
     {
-        scoreDisplay.SetDisplay(GameObject.Find("Game State").GetComponent<GameState>().Score);
+        scoreDisplay.SetDisplay(GameObject.Find("Game State").GetComponent<GameState>().score);
     }
 
-    public void setTempDisplay()
+    public void SetTempDisplay()
     {
         //Format to deal with the period in the temp display.
         string fmt = "00.00";
-        string numberString = GameObject.Find("Game State").GetComponent<GameState>().Temperature.ToString(fmt).Remove(2,1);
+        string numberString = GameObject.Find("Game State").GetComponent<GameState>().temperature.ToString(fmt).Remove(2,1);
 
         tempDisplay.SetDisplay(numberString);
     }

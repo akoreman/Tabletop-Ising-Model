@@ -45,7 +45,7 @@ public class Camera : MonoBehaviour
     //Move and rotate the camera after the rest of each frame has been done.
     void LateUpdate()
     {
-        if (gameState.GetComponent<GameState>().gameAlive)
+        if (gameState.GetComponent<GameState>().isGameAlive)
         {
             UpdateFocusPoint();
             Vector3 lookDirection = transform.forward;

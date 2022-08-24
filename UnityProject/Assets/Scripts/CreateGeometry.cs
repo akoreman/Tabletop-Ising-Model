@@ -42,31 +42,31 @@ public class CreateGeometry : MonoBehaviour
     {
         SetNumFlipsDifficulty();
 
-        gameState.GetComponent<GameState>().setGlobalParams(nX, nY, sizeX, sizeY, numFlips, startTemperature);
+        gameState.GetComponent<GameState>().SetGlobalParams(nX, nY, sizeX, sizeY, numFlips, startTemperature);
 
-        foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
-        foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
+        foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetScoreDisplay();
+        foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetTempDisplay();
 
-        GetComponent<TileHandler>().createGeometry();
+        GetComponent<TileHandler>().CreateGeometry();
 
         // Place the initial temperature pickups.
-        pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0,nX), Random.Range(0, nY));
-        pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
+        pickups.GetComponent<TempPickups>().PlaceUpPickup(Random.Range(0,nX), Random.Range(0, nY));
+        pickups.GetComponent<TempPickups>().PlaceDownPickup(Random.Range(0, nX), Random.Range(0, nY));
     }
 
     
     void Update()
     {
-        if (!gameState.GetComponent<GameState>().gameAlive && Input.GetKeyDown("space"))
+        if (!gameState.GetComponent<GameState>().isGameAlive && Input.GetKeyDown("space"))
             SceneManager.LoadScene("MainGame");
 
         if (Input.GetKeyDown("x") && gameState.GetComponent<GameState>().hasUpPickup)
         {
             GetComponent<TileHandler>().SetAllUp();
             gameState.GetComponent<GameState>().hasUpPickup = false;
-            gameState.GetComponent<GameState>().fieldOnScreen = false;
+            gameState.GetComponent<GameState>().isFieldOnScreen = false;
 
-            foregroundGeometry.GetComponent<BackgroundHandler>().foregroundFieldButtonPress();
+            foregroundGeometry.GetComponent<BackgroundHandler>().ForegroundFieldButtonPress();
         }
     }   
     

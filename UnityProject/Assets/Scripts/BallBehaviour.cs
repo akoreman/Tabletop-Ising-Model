@@ -24,10 +24,7 @@ public class BallBehaviour : MonoBehaviour
     Camera mainCamera;
 
     [SerializeField]
-    int nConPowerUp = 3;
-
-    [SerializeField]
-    float camSpeed = 10f;
+    int numConsecutivePowerUp = 3;
 
     Vector3 velocity;
     Vector2 acceleration;
@@ -35,7 +32,6 @@ public class BallBehaviour : MonoBehaviour
 
     bool onGround;
     bool wantJump = false;
-    bool cameraMoving = false;
 
     GameObject gameState;
     GameObject foregroundGeometry;
@@ -82,7 +78,7 @@ public class BallBehaviour : MonoBehaviour
 
         if (ball.localPosition.y < -1.95f)
         {
-            gameState.GetComponent<GameState>().gameAlive = false;
+            gameState.GetComponent<GameState>().isGameAlive = false;
 
             ball.gameObject.SetActive(false);
         }
@@ -134,19 +130,19 @@ public class BallBehaviour : MonoBehaviour
 
             //Destroy the pickup.
             Destroy(trigger.gameObject);
-            gameState.GetComponent<GameState>().Score += 10;
+            gameState.GetComponent<GameState>().score += 10;
 
             //Update the temperature and set the in-game displays.
-            gameState.GetComponent<GameState>().Temperature = Mathf.Min(99.99f, gameState.GetComponent<GameState>().Temperature + 0.05f);
-            Pickups.GetComponent<TempPickups>().placeUpPickup(Random.Range(0, nX), Random.Range(0, nY));
+            gameState.GetComponent<GameState>().temperature = Mathf.Min(99.99f, gameState.GetComponent<GameState>().temperature + 0.05f);
+            Pickups.GetComponent<TempPickups>().PlaceUpPickup(Random.Range(0, nX), Random.Range(0, nY));
 
-            foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
-            foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
+            foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetScoreDisplay();
+            foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetTempDisplay();
 
             //If enough consecutive up-pickups have been collected place a new powerup.
             gameState.GetComponent<GameState>().consectUp++;
 
-            if (gameState.GetComponent<GameState>().consectUp >= nConPowerUp)
+            if (gameState.GetComponent<GameState>().consectUp >= numConsecutivePowerUp)
                 CreateNewPowerUp();
         }
 
@@ -156,12 +152,12 @@ public class BallBehaviour : MonoBehaviour
             int nY = gameState.GetComponent<GameState>().nY;
 
             Destroy(trigger.gameObject);
-            gameState.GetComponent<GameState>().Score += 0;
-            gameState.GetComponent<GameState>().Temperature = Mathf.Max(0.5f, gameState.GetComponent<GameState>().Temperature - 0.05f);
-            Pickups.GetComponent<TempPickups>().placeDownPickup(Random.Range(0, nX), Random.Range(0, nY));
+            gameState.GetComponent<GameState>().score += 0;
+            gameState.GetComponent<GameState>().temperature = Mathf.Max(0.5f, gameState.GetComponent<GameState>().temperature - 0.05f);
+            Pickups.GetComponent<TempPickups>().PlaceDownPickup(Random.Range(0, nX), Random.Range(0, nY));
 
-            foregroundGeometry.GetComponent<SegmentDisplayHandler>().setScoreDisplay();
-            foregroundGeometry.GetComponent<SegmentDisplayHandler>().setTempDisplay();
+            foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetScoreDisplay();
+            foregroundGeometry.GetComponent<SegmentDisplayHandler>().SetTempDisplay();
 
             gameState.GetComponent<GameState>().consectUp = 0;
         }
@@ -171,7 +167,7 @@ public class BallBehaviour : MonoBehaviour
         {
             gameState.GetComponent<GameState>().hasUpPickup = true;
             Destroy(trigger.gameObject);
-            foregroundGeometry.GetComponent<BackgroundHandler>().rotateLightGreen();
+            foregroundGeometry.GetComponent<BackgroundHandler>().RotateLightGreen();
         }
 
         //Destroy the pickup, set the variables in the gamestate and place the portals.
@@ -182,7 +178,7 @@ public class BallBehaviour : MonoBehaviour
 
             Destroy(trigger.gameObject);
 
-            gameState.GetComponent<GameState>().pbcOnScreen = false;
+            gameState.GetComponent<GameState>().isPbcOnScreen = false;
 
             int pbcPosition = Random.Range(0, nX + nY - gameState.GetComponent<GameState>().numPBC);
             GameObject.Find("LevelGeometry").GetComponent<TileHandler>().CreatePBCPair(gameState.GetComponent<GameState>().availablePairs[pbcPosition]);
@@ -231,36 +227,36 @@ public class BallBehaviour : MonoBehaviour
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
 
-        bool pbcOnScreen = gameState.GetComponent<GameState>().pbcOnScreen;
-        bool fieldOnScreen = gameState.GetComponent<GameState>().fieldOnScreen;
+        bool isPbcOnScreen = gameState.GetComponent<GameState>().isPbcOnScreen;
+        bool isFieldOnScreen = gameState.GetComponent<GameState>().isFieldOnScreen;
 
-        if (pbcOnScreen && fieldOnScreen)
+        if (isPbcOnScreen && isFieldOnScreen)
             return;
 
         
 
-        if (pbcOnScreen && !fieldOnScreen)
+        if (isPbcOnScreen && !isFieldOnScreen)
         {
-            gameState.GetComponent<GameState>().fieldOnScreen = true;
+            gameState.GetComponent<GameState>().isFieldOnScreen = true;
             gameState.GetComponent<GameState>().consectUp = 0;
-            Pickups.GetComponent<TempPickups>().placeFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
+            Pickups.GetComponent<TempPickups>().PlaceFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
 
             return;
         }
 
-        if (!pbcOnScreen && fieldOnScreen)
+        if (!isPbcOnScreen && isFieldOnScreen)
         {
             if (gameState.GetComponent<GameState>().numPBC < nX + nY)
                 return;
 
-            Pickups.GetComponent<TempPickups>().placePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
-            gameState.GetComponent<GameState>().pbcOnScreen = true;
+            Pickups.GetComponent<TempPickups>().PlacePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
+            gameState.GetComponent<GameState>().isPbcOnScreen = true;
             gameState.GetComponent<GameState>().consectUp = 0;
 
             return;
         }
 
-        if (!pbcOnScreen && !fieldOnScreen)
+        if (!isPbcOnScreen && !isFieldOnScreen)
         {
             int r = Random.Range(0, 2);
 
@@ -269,15 +265,15 @@ public class BallBehaviour : MonoBehaviour
                 if (gameState.GetComponent<GameState>().numPBC < nX + nY)
                     return;
 
-                Pickups.GetComponent<TempPickups>().placePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
-                gameState.GetComponent<GameState>().pbcOnScreen = true;
+                Pickups.GetComponent<TempPickups>().PlacePBCPickup(Random.Range(0, nX), Random.Range(0, nY));
+                gameState.GetComponent<GameState>().isPbcOnScreen = true;
                 gameState.GetComponent<GameState>().consectUp = 0;
                 
             }
             else
             {
-                Pickups.GetComponent<TempPickups>().placeFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
-                gameState.GetComponent<GameState>().fieldOnScreen = true;
+                Pickups.GetComponent<TempPickups>().PlaceFieldPickup(Random.Range(0, nX), Random.Range(0, nY));
+                gameState.GetComponent<GameState>().isFieldOnScreen = true;
             }
 
             return;

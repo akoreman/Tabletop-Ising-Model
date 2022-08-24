@@ -81,52 +81,52 @@ public class BackgroundHandler : MonoBehaviour
 
         //If the player pushes the jump button move the in-game button up and down.
         if (Input.GetKeyDown("space"))
-            StartCoroutine(moveButton(jumpButton, 0.05f));
+            StartCoroutine(MoveButton(jumpButton, 0.05f));
     }
 
     //Function handles the field power-up button to be depressed.
-    public void foregroundFieldButtonPress()
+    public void ForegroundFieldButtonPress()
     {
-        StartCoroutine(moveButton(fieldButton, 0.1f));
-        StartCoroutine(rotateLight(fieldLight, false));
+        StartCoroutine(MoveButton(fieldButton, 0.1f));
+        StartCoroutine(RotateLight(fieldLight, false));
     }
 
-    IEnumerator moveButton(Transform Button, float upPosition)
+    IEnumerator MoveButton(Transform button, float upPosition)
     {
-        Vector3 Position = Button.localPosition;
+        Vector3 position = button.localPosition;
         bool hasBottomed = false;
 
-        while (!hasBottomed | Position.y != upPosition)
+        while (!hasBottomed | position.y != upPosition)
         {
             if (!hasBottomed)
             {
-                Position.y = Mathf.MoveTowards(Position.y, 0f, buttonSpeed * Time.deltaTime);
+                position.y = Mathf.MoveTowards(position.y, 0f, buttonSpeed * Time.deltaTime);
 
-                if (Position.y == 0)
+                if (position.y == 0)
                     hasBottomed = true;
             }
             else
-                Position.y = Mathf.MoveTowards(Position.y, upPosition, buttonSpeed * Time.deltaTime);
+                position.y = Mathf.MoveTowards(position.y, upPosition, buttonSpeed * Time.deltaTime);
 
-            Button.localPosition = Position;
+            button.localPosition = position;
 
             yield return null;
         }
     }
 
     //Function which rotates the indicator to the correct color.
-    public void rotateLightGreen()
+    public void RotateLightGreen()
     {
-        StartCoroutine(rotateLight(fieldLight, true));
+        StartCoroutine(RotateLight(fieldLight, true));
     }
 
-    public IEnumerator rotateLight(Transform Light, bool buttonIsGreen)
+    public IEnumerator RotateLight(Transform light, bool buttonIsGreen)
     {
         float totalRotation = 0f;
 
         while(totalRotation < 180f)
         {
-            Light.Rotate(new Vector3(rotationSpeed * Time.deltaTime, 0f,0f));
+            light.Rotate(new Vector3(rotationSpeed * Time.deltaTime, 0f,0f));
 
             totalRotation += rotationSpeed * Time.deltaTime;
 
@@ -134,9 +134,9 @@ public class BackgroundHandler : MonoBehaviour
         }
 
         if (buttonIsGreen)
-            Light.localEulerAngles = new Vector3(270f, 0f, 0f);
+            light.localEulerAngles = new Vector3(270f, 0f, 0f);
         else
-            Light.localEulerAngles = new Vector3(90f, 0f, 0f);
+            light.localEulerAngles = new Vector3(90f, 0f, 0f);
     }
 
 }

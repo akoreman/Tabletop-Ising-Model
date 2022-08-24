@@ -32,33 +32,33 @@ public class TempPickups : MonoBehaviour
         levelGeometry = GameObject.Find("LevelGeometry");
     }
 
-    public void placeUpPickup(int i, int j)
+    public void PlaceUpPickup(int i, int j)
     {
         upPickup = Instantiate(upPrefab);
-        upPickup.localPosition = levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j) + new Vector3(0f,0.06f,0f);
+        upPickup.localPosition = levelGeometry.GetComponent<TileHandler>().GetTileCoords(i, j) + new Vector3(0f,0.06f,0f);
         upPickup.name = "uppickup";
     }
 
-    public void placeDownPickup(int i, int j)
+    public void PlaceDownPickup(int i, int j)
     {
         downPickup = Instantiate(downPrefab);
-        downPickup.localPosition = levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j) + new Vector3(0f, 0.06f, 0f); ;
+        downPickup.localPosition = levelGeometry.GetComponent<TileHandler>().GetTileCoords(i, j) + new Vector3(0f, 0.06f, 0f); ;
         downPickup.name = "downpickup";
     }
 
-    public void placeFieldPickup(int i, int j)
+    public void PlaceFieldPickup(int i, int j)
     {
         fieldPickup = Instantiate(fieldPrefab);
-        fieldPickup.localPosition = levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j);
+        fieldPickup.localPosition = levelGeometry.GetComponent<TileHandler>().GetTileCoords(i, j);
         fieldPickup.localPosition += new Vector3(0f, 0.3f, 0f);
 
         fieldPickup.name = "fieldpickup";
     }
 
-    public void placePBCPickup(int i, int j)
+    public void PlacePBCPickup(int i, int j)
     {
         pbcPickup = Instantiate(pbcPrefab);
-        pbcPickup.localPosition = levelGeometry.GetComponent<TileHandler>().getTileCoords(i, j);
+        pbcPickup.localPosition = levelGeometry.GetComponent<TileHandler>().GetTileCoords(i, j);
         pbcPickup.localPosition += new Vector3(0f, 0.3f, 0f);
  
         pbcPickup.name = "pbcpickup";

@@ -51,7 +51,7 @@ public class TileHandler : MonoBehaviour
         gameState = GameObject.Find("Game State");
     }
 
-    public void createGeometry()
+    public void CreateGeometry()
     {
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
@@ -68,7 +68,7 @@ public class TileHandler : MonoBehaviour
             {
                 tileList[i, j] = new IsingTile();
 
-                Vector3 tileCoords = getTileCoords(i, j);
+                Vector3 tileCoords = GetTileCoords(i, j);
 
                 tileList[i, j].tile = Instantiate(tilePrefab);
                 tileList[i, j].tile.localPosition = tileCoords;
@@ -155,7 +155,7 @@ public class TileHandler : MonoBehaviour
                 {
                     Transform post = Instantiate(postPrefab);
 
-                    Vector3 postCoords = getTileCoords(i, j);
+                    Vector3 postCoords = GetTileCoords(i, j);
 
                     postCoords.x -= sizeX / 2f + 0.2f;
                     postCoords.z -= sizeY / 2f + 0.2f;
@@ -169,7 +169,7 @@ public class TileHandler : MonoBehaviour
                 {
                     Transform post = Instantiate(postPrefab);
 
-                    Vector3 postCoords = getTileCoords(i, j);
+                    Vector3 postCoords = GetTileCoords(i, j);
 
                     postCoords.x -= sizeX / 2f + 0.2f;
                     postCoords.z += sizeY / 2f + 0.2f;
@@ -183,7 +183,7 @@ public class TileHandler : MonoBehaviour
                 {
                     Transform post = Instantiate(postPrefab);
 
-                    Vector3 postCoords = getTileCoords(i, j);
+                    Vector3 postCoords = GetTileCoords(i, j);
 
                     postCoords.x += sizeX / 2f + 0.2f;
                     postCoords.z -= sizeY / 2f + 0.2f;
@@ -197,7 +197,7 @@ public class TileHandler : MonoBehaviour
                 {
                     Transform post = Instantiate(postPrefab);
 
-                    Vector3 postCoords = getTileCoords(i, j);
+                    Vector3 postCoords = GetTileCoords(i, j);
 
                     postCoords.x += sizeX / 2f + 0.2f;
                     postCoords.z += sizeY / 2f + 0.2f;
@@ -215,7 +215,7 @@ public class TileHandler : MonoBehaviour
         }
 
     //Help function to translate from ising coordinates to world coordinates.
-    public Vector3 getTileCoords(int i, int j)
+    public Vector3 GetTileCoords(int i, int j)
     {
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
@@ -252,7 +252,7 @@ public class TileHandler : MonoBehaviour
         int nX = gameState.GetComponent<GameState>().nX;
         int nY = gameState.GetComponent<GameState>().nY;
         int numFlips = gameState.GetComponent<GameState>().numFlips;
-        float Temperature = gameState.GetComponent<GameState>().Temperature;
+        float Temperature = gameState.GetComponent<GameState>().temperature;
 
 
         for (int i = 0; i < numFlips; i++)
