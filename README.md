@@ -5,7 +5,9 @@ Used as a playground to play with the Unity3D ML agents package https://github.c
   
 Models made using ProBuilder, textures made using InkScape.
   
-Uses the following font https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059 .
+Uses the following font https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059 .  
+
+Expanded by adding an ML agent that plays the game in https://github.com/akoreman/Tabletop-Ising-AI.  
 
 
 # Screenshots
