@@ -1,14 +1,9 @@
 # Tabletop Ising Model
 Physics visualization morphed into a small game where you get to explore the behaviour of the 2D Ising model. Playable on https://xyalice.itch.io/ising-model.  
   
-Used as a playground to play with the Unity3D ML agents package https://github.com/akoreman/Tabletop-Ising-AI.  
+Used as a playground to train reinforcement learning agents with the Unity3D ML agents package https://github.com/akoreman/Tabletop-Ising-AI.  
   
-Models made using ProBuilder, textures made using InkScape.
-  
-Uses the following font https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059 .  
-
-Expanded by adding an ML agent that plays the game in https://github.com/akoreman/Tabletop-Ising-AI.  
-
+Uses the following font https://assetstore.unity.com/packages/2d/fonts/free-pixel-font-thaleah-140059.  
 
 # Screenshots
 
